@@ -8,14 +8,10 @@ determinar si ese valor se encuentra dentro del siguiente listado de palabras v√
 0 en caso contrario.*/
 
 
-echo validateWord("Recuperatorio", 20);
+echo validateWord("Programacion", 20);
 
 function validateWord($word, $maxNumber)
 {
     $whiteWordsList = array("Recuperatorio", "Parcial", "Programacion");
-    if (strlen($word) <= $maxNumber && in_array($word, $whiteWordsList)) {
-        return 1;
-    } else {
-        return 0;
-    }
+    return strlen($word) <= $maxNumber && in_array($word, $whiteWordsList) ? 1 : 0;
 }
