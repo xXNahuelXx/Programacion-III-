@@ -6,6 +6,7 @@ cuenta los espacios en blanco ni saltos de líneas como palabras. Los resultados
 $pathFile = "./Mis Archivos/palabras.txt";
 $fileReference = fopen($pathFile, 'r');
 $stats = array("1" => 0, "2" => 0, "3" => 0, "4" => 0, "4+" => 0);
+$wordList = array();
 
 if ($fileReference) {
 
@@ -14,6 +15,7 @@ if ($fileReference) {
         $arrayLine = explode(",", $lineRead);
         foreach ($arrayLine as $words) {
             $words = trim($words);
+            array_push($wordList, $words);
             switch (strlen($words)) {
                 case 1:
                     $stats["1"]++;
@@ -35,11 +37,50 @@ if ($fileReference) {
         }
     }
 
+
+    ApplyStyles();
+
     echo "<br>";
-    for ($i = 1; $i < 5; $i++) {
-        echo "Con $i letra/s hay: " . $stats[strval($i)] . " palabra/s<br>";
+    echo "<table>
+        <thead>
+            <th>Palabra<th>
+            <th>Cantidad de letras<th>
+        </thead>";
+
+    foreach ($wordList as $word) {
+        echo "<tr>
+                <td> $word </td>
+                <td> " . strlen($word) . " </td>
+            </tr>";
     }
+
+    /*for ($i = 0; $i < 5; $i++) {
+        echo "<tr>";
+        echo "<td> " . $wordList[$i] . "</td>";
+        //echo "<td> " . $stats[strval($i)] . "</td>";
+        echo "<td> " . strlen($words) . "</td>";
+        echo "</tr>";
+    }*/
+    echo  "</table>";
     echo "Con mas de 4 letras hay " . $stats["4+"] . " palabra/s<br>";
 }
 
 fclose($fileReference);
+
+function ApplyStyles()
+{
+    echo "<style>
+    table,
+    th,
+    td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+
+    td{
+        padding: 5px 10px;
+        height: 100px;
+        width: 200px;
+    } 
+    </style>";
+}
